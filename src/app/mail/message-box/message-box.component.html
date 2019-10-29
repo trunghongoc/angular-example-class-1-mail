@@ -1,0 +1,6 @@
+<ul class="list-group">
+  <li
+    *ngFor="let boxName of mailBoxs "
+    [routerLink]="['/messages', boxName]"
+    class="list-group-item">{{ boxName }}</li>
+</ul>

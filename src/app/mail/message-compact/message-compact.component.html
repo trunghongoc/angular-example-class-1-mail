@@ -1,0 +1,8 @@
+<ul class="list-group">
+  <li
+    *ngFor="let mess of messages"
+    class="list-group-item">
+    <p>From: {{ mess.from }}, to: {{ mess.to }}</p>
+    <p>{{ mess.subject }}</p>
+  </li>
+</ul>
