@@ -6,7 +6,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./message-box.component.scss']
 })
 export class MessageBoxComponent implements OnInit {
-  @Input() mailBoxs: array = [];
+  @Input() mailBoxs = [];
 
   constructor() { }
 

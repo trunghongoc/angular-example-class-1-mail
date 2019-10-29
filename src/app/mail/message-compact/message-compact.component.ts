@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./message-compact.component.scss']
 })
 export class MessageCompactComponent implements OnInit {
-  @Input() messages: array = [];
+  @Input() messages = [];
 
   constructor() { }
 

@@ -8,7 +8,6 @@ import { IndexComponent } from './mail/index/index.component';
 import { MessageBoxComponent } from './mail/message-box/message-box.component';
 import { MessageDetailComponent } from './mail/message-detail/message-detail.component';
 import { MessageCompactComponent } from './mail/message-compact/message-compact.component';
-import { MessageCompactsComponent } from './mail/message-compacts/message-compacts.component';
 import { HomeComponent } from './home/home.component';
 
 @NgModule({
@@ -18,7 +17,6 @@ import { HomeComponent } from './home/home.component';
     MessageBoxComponent,
     MessageDetailComponent,
     MessageCompactComponent,
-    MessageCompactsComponent,
     HomeComponent
   ],
   imports: [

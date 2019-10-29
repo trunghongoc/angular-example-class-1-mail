@@ -1,30 +1,36 @@
 <div class="container-fluid">
-    <div class="row">
-      <div class="col">
-        <div ngbDropdown class="d-inline-block">
+  <div class="row">
+    <div class="col">
+      <div ngbDropdown class="d-inline-block">
+        <button
+          class="btn btn-outline-primary"
+          id="dropdownBasic1"
+          ngbDropdownToggle>{{ user }}</button>
+        <div
+          ngbDropdownMenu
+          aria-labelledby="dropdownBasic1">
           <button
-            class="btn btn-outline-primary"
-            id="dropdownBasic1"
-            ngbDropdownToggle>{{ user }}</button>
-          <div
-            ngbDropdownMenu
-            aria-labelledby="dropdownBasic1">
-            <button
-              *ngFor="let userMail of users"
-              (click)="handleSwitchToAnotherUser(userMail)"
-              ngbDropdownItem>{{ userMail }}</button>
-          </div>
+            *ngFor="let userMail of users"
+            (click)="handleSwitchToAnotherUser(userMail)"
+            ngbDropdownItem>{{ userMail }}</button>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-3">
-        <app-message-box [mailBoxs]="mailBoxs"></app-message-box>
-      </div>
-
-      <div class="col-6">
-        <app-message-compact [messages]="messageCompacts"></app-message-compact>
-      </div>
+  <div class="row">
+    <div class="col-3">
+      <app-message-box [mailBoxs]="mailBoxs"></app-message-box>
     </div>
+
+    <div class="col-6">
+      <app-message-detail
+        *ngIf="params.messageId; else showCompactList"
+        [message]="messageDetail"></app-message-detail>
+
+      <ng-template #showCompactList>
+        <app-message-compact [messages]="messageCompacts"></app-message-compact>
+      </ng-template>
+    </div>
+  </div>
 </div>

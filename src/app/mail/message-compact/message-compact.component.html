@@ -4,5 +4,8 @@
     class="list-group-item">
     <p>From: {{ mess.from }}, to: {{ mess.to }}</p>
     <p>{{ mess.subject }}</p>
+    <button
+      [routerLink]="['/messages', mess.folder, mess._id]"
+      class="btn btn-success">View detail</button>
   </li>
 </ul>

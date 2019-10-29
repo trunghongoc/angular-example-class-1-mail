@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, NavigationStart } from '@angular/router';
 
 import fakeMessages from './../messages.js';
@@ -9,34 +9,33 @@ import fakeMessages from './../messages.js';
   styleUrls: ['./index.component.scss']
 })
 export class IndexComponent implements OnInit {
-  private users: array = [
+  private users = [
     'devguy@angular.dev',
     'devgal@angular.dev',
-    'myself@angular.dev',
-    'woodard.ellison@two-cities.extremo.name',
-    'roy.bass@elflore.calcula.com',
-    'case.hughes@cat-in-the-hat.premiant.biz',
-    'shanna.huber@macbeth.terrago.io'
+    'myself@angular.dev'
   ];
-  private user: string = this.users[0];
+  private user = this.users[0];
   private mailBoxs = [];
   private messages = [];
   private messageCompacts = [];
   private currentMessages = [];
   private messageDetail;
-  private params = {};
+  private params = {
+    mailBox: null,
+    messageId: null
+  };
 
   constructor(private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
-    this.initData()
+    this.initData();
     this.watchRouteChange();
   }
 
   watchRouteChange() {
     this.router.events.subscribe(event => {
-      if(event instanceof NavigationStart) {
+      if (event instanceof NavigationStart) {
         this.initData();
       }
     });
@@ -48,7 +47,10 @@ export class IndexComponent implements OnInit {
 
   getRouteParams() {
     this.route.params.subscribe(params => {
-      this.params = params;
+      this.params = {
+        ...this.params,
+        ...params
+      };
       this.getMailBoxs();
     });
   }
@@ -58,12 +60,11 @@ export class IndexComponent implements OnInit {
     this.getMailBoxs();
   }
 
-  hasAuthen(mess: object) {
+  hasAuthen(mess) {
     return mess.from.indexOf(this.user) !== -1 || mess.to === this.user;
   }
 
   getMailBoxs() {
-    console.log('---ddhdhh')
     const mailBoxs = [];
     const messages = [];
     fakeMessages.forEach(mess => {
@@ -76,14 +77,19 @@ export class IndexComponent implements OnInit {
     this.mailBoxs = [...new Set(mailBoxs)];
     this.messages = messages;
     const mailBox = this.params.mailBox || this.mailBoxs[0];
-    console.log('---mailbox:', mailBox);
-    this.getMessageCompacts(this.mailBoxs[mailBox]);
+    this.getMessageCompacts(mailBox);
   }
 
   getMessageCompacts(boxName: string) {
-    if (!boxName)
+    if (!boxName) {
       this.messageCompacts = [];
-    else
+      this.params.messageId = null;
+    } else {
       this.messageCompacts = this.messages.filter(mess => mess.folder === boxName);
+    }
+
+    if (this.params.messageId) {
+      this.messageDetail = fakeMessages.find(mess => mess._id === this.params.messageId);
+    }
   }
 }
